@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>YarA-Admin_Panel</title>
+</head>
+<body>
+<div class="container" style="width: 50%">
+    <table class="table table-hover" id="sortTable">
+        <tr>
+            <th onclick="sortTable(0)">Id</th>
+            <th onclick="sortTable(1)">Name</th>
+            <th onclick="sortTable(2)">Last Name</th>
+            <th onclick="sortTable(3)">Email</th>
+            <th onclick="sortTable(4)">Role</th>
+            <th onclick="sortTable(5)">Active</th>
+        </tr>
+        <th:block th:each="user : ${users}">
+            <tr>
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getName()}"></td>
+                <td th:text="${user.getLastName()}"></td>
+                <td th:text="${user.getEmail()}"></td>
+                <td th:text="${user.getNameUserRole()}"></td>
+                <td th:text="${user.getActive()}"></td>
+                <td>
+                    <form th:action="@{/adminPanel/setActive/{id}(id=${user.getId()})}" method="get">
+                        <button type="submit">On/Off</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/adminPanel/delete/{id}(id=${user.getId()})}" method="get">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+<script>
+    function sortTable(col) {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("sortTable");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[col];
+                y = rows[i + 1].getElementsByTagName("td")[col];
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+</script>
+</body>
+</html>

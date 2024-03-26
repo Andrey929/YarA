@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: YarA
+
+  config:
+    import: file:src/main/resources/configuration.yaml
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
