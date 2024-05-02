@@ -7,6 +7,11 @@
     <title>YarA-Teacher_Panel</title>
 </head>
 <body>
+<form id="history-button-form" th:action="@{/study/HistoryMyLessons}" method="get">
+    <div class="text-center"> <!-- Центрирование контента по горизонтали -->
+        <button class="btn btn-primary" id="getHistory-Lessons-button" type="submit" style="margin-top:2vw; width: 20%; font-size: 1.5vw; background-color: #5E503F">История занятий</button>
+    </div>
+</form >
 <form id="button-form" th:action="@{/study/myLessons}" method="get">
     <div class="text-center"> <!-- Центрирование контента по горизонтали -->
         <button class="btn btn-primary" id="getLessons-button" type="submit" style="margin-top:2vw; width: 20%; font-size: 1.5vw; background-color: #5E503F">Мои занятия</button>

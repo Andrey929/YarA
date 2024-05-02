@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,6 +31,12 @@ public class User implements UserDetails{
     @CollectionTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Roles> roles = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    private Student student;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, optional = false, fetch = FetchType.LAZY)
+    private Teacher teacher;
+
     private LocalDateTime dateOfCreate;
     private Boolean active;
 
@@ -84,5 +91,11 @@ public class User implements UserDetails{
             return "TEACHER";
         }else return "USER";
     }
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                // Other simple properties, avoid calling toString() on related entities
+                '}';
+    }
 }

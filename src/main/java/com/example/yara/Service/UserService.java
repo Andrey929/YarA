@@ -20,6 +20,8 @@ public class UserService{
     @Autowired
     private final UserRepository userRepository;
     @Autowired
+    private TeacherService teacherService;
+    @Autowired
     private final PasswordEncoder passwordEncoder;
 @Transactional
     public boolean createUser(@NonNull User user){
@@ -39,11 +41,6 @@ public class UserService{
     public List<User> getAllUsers(){
         return userRepository.findAll();
     }
-    public String getUserRole(Long id){
-        User user = userRepository.getById(id);
-        System.out.println(user.getNameUserRole());
-        return user.getNameUserRole();
-    }
     public void bunUser(Long id){
         User user = userRepository.getById(id);
         if (user.getActive()){
@@ -58,6 +55,22 @@ public class UserService{
     }
     public void deleteUser(Long id){
         userRepository.deleteById(id);
+    }
+
+    public void switchRole(Long id,String role){
+        User user = userRepository.getById(id);
+        user.getRoles().clear();
+        switch (role){
+            case "Admin"-> user.getRoles().add(Roles.ROLE_ADMIN);
+            case "Teacher"->{
+                teacherService.createTeacher(user);
+                user.getRoles().add(Roles.ROLE_TEACHER);
+            }
+            case "User"->user.getRoles().add(Roles.ROLE_USER);
+        }
+        userRepository.save(user);
+        log.info("Set "+role+" role user with email: "+user.getEmail());
+
     }
 
 }

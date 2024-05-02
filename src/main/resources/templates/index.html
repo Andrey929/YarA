@@ -4,22 +4,36 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<!--    <link media="all" rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>-->
+    <link media="all" rel="stylesheet" th:href="@{/css/index.css}" type="text/css"/>
     <meta charset="UTF-8">
     <title>YarA</title>
 </head>
 <body>
-<div class="head">
-    <div class="container-button">
-        <button class="buttons" id="log-button" type="button" onclick="window.location = '/LoginPage'">Вход</button>
-        <button class="buttons" id="reg-button" type="button" onclick="window.location = '/RegisterPage'">Регистрация</button>
+
+<div class="header" style="margin-top: 0.3vw">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="text-body" style="margin-left: 2vw; font-family: FreeMono, monospace; font-size: 2vw;">
+            <h1 style="color: #d8bfd8">YarAcademy</h1>
+        </div>
+        <div class="container-button" id="buttons" style="font-family: Comic Sans MS, Comic Sans, cursive; margin-right: 1vw;">
+            <button type="button" class="btn btn-outline-secondary" id="log-button" style="font-size: 1.7vw; color: #CDAA51; border-color: #d8bfd8; border-width: 2px;" onclick="window.location = '/LoginPage'">Вход</button>
+            <button type="button" class="btn btn-outline-secondary" id="reg-button" style="font-size: 1.7vw; color: #CDAA51; border-color: #d8bfd8; border-width: 2px; margin-left: 10px;" onclick="window.location = '/RegisterPage'">Регистрация</button>
+        </div>
+    </div>
+    <hr class="hr hr-blurry" style="margin-top: -0vw"/>
+    <div class="bg-body" style="width: 100%;height: 100%">
+        <div class="text-center">
+        <img src="/images/Temple.gif" class="img-fluid" alt="">
+        </div>
+    </div>
+    <hr class="hr hr-blurry"/>
+    <div class="text-info">
+        <div class="email-info" style="color: black; width: 25%">
+            <h6><small>Тех.поддержка: <u>yarm.99@yandex.ru</u></small></h6>
+            <h6><small>Тьютор: <u>vika.kim2134@gmail.com</u></small></h6>
+        </div>
     </div>
 </div>
-<div class="wave">
-    <div class="smallLine smallLine1"></div>
-    <div class="smallLine smallLine2"></div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

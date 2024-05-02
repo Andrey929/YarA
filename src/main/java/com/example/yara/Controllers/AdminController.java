@@ -2,18 +2,13 @@ package com.example.yara.Controllers;
 
 
 import com.example.yara.Service.UserService;
-import com.example.yara.model.User;
+import com.example.yara.DTO.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -24,7 +19,7 @@ public class AdminController {
 
     @GetMapping("/adminPanel")
     public String getAdminPanel(Model model){
-        model.addAttribute("users",userService.getAllUsers());
+        model.addAttribute("userDto",new UserDto());
         return "adminPanel";
     }
     @GetMapping("/adminPanel/setActive/{id}")
@@ -36,5 +31,15 @@ public class AdminController {
     public String deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
         return "redirect:/adminPanel";
+    }
+    @PostMapping("/adminPanel/setRole")
+    public String setRole(@ModelAttribute("userDto")UserDto userDto) {
+        userService.switchRole(userDto.getUserId(),userDto.getUserRole());
+        return "redirect:/adminPanel";
+    }
+    @GetMapping("/adminPanel/data")
+    public String getDataPage(Model model){
+        model.addAttribute("users",userService.getAllUsers());
+        return "dataPage";
     }
 }

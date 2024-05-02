@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    username: adminDB
+    password: Y.13.03.2024.start
+    url: jdbc:mysql://localhost:3306/yara_data

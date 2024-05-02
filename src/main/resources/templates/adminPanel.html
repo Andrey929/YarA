@@ -6,64 +6,54 @@
     <meta charset="UTF-8">
     <title>YarA-Admin_Panel</title>
 </head>
-<body>
-<div class="container" style="width: 50%">
-    <table class="table table-hover" id="sortTable">
-        <tr>
-            <th onclick="sortTable(0)">Id</th>
-            <th onclick="sortTable(1)">Name</th>
-            <th onclick="sortTable(2)">Last Name</th>
-            <th onclick="sortTable(3)">Email</th>
-            <th onclick="sortTable(4)">Role</th>
-            <th onclick="sortTable(5)">Active</th>
-        </tr>
-        <th:block th:each="user : ${users}">
-            <tr>
-                <td th:text="${user.getId()}"></td>
-                <td th:text="${user.getName()}"></td>
-                <td th:text="${user.getLastName()}"></td>
-                <td th:text="${user.getEmail()}"></td>
-                <td th:text="${user.getNameUserRole()}"></td>
-                <td th:text="${user.getActive()}"></td>
-                <td>
-                    <form th:action="@{/adminPanel/setActive/{id}(id=${user.getId()})}" method="get">
-                        <button type="submit">On/Off</button>
-                    </form>
-                </td>
-                <td>
-                    <form th:action="@{/adminPanel/delete/{id}(id=${user.getId()})}" method="get">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        </th:block>
-    </table>
-</div>
+<body style="text-align: center">
+
+<form th:action="@{/adminPanel/data}" th:method="get">
+    <div class="form-group col-md-2" style="width: 100%;" >
+        <button class="btn btn-primary" type="submit" style="margin-top:2%; width: 30%;  font-size: 14px; background-color: #5E503F" >Все пользователи</button>
+    </div>
+</form>
+
+
+<form id="add-form" th:action="@{/adminPanel/setRole}" method="post" th:object="${userDto}" style="width: 40%;" class="mb-3 needs-validation" novalidate>
+    <label for="add-form" style="margin-left: -60%; width: 40%">Изменить роль</label>
+    <div class="form-row" >
+        <div class="form-group col-md-6" style="width: 40%;text-align: left">
+            <label for="inputId" >Id</label>
+            <input type="text" class="form-control" id="inputId" th:field="*{userId}" required>
+        </div>
+        <div class="form-group col-md-4" style="width: 40%; text-align: left">
+            <label for="inputState">Role</label>
+            <select id="inputState" class="form-control" type="select" th:field="*{userRole}" required>
+                <option value="User" selected>User</option>
+                <option value="Teacher">Teacher</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+        <div class="form-group col-md-2" style="width: 100%;">
+                <button class="btn btn-primary" type="submit" style="margin-top: 5%; width: 60%; margin-left: -50%;  font-size: 14px">Применить</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 <script>
-    function sortTable(col) {
-        var table, rows, switching, i, x, y, shouldSwitch;
-        table = document.getElementById("sortTable");
-        switching = true;
-        while (switching) {
-            switching = false;
-            rows = table.rows;
-            for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-                x = rows[i].getElementsByTagName("td")[col];
-                y = rows[i + 1].getElementsByTagName("td")[col];
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
-            if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-            }
+    document.getElementById('add-form').addEventListener('submit', function(event) {
+        if (!this.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
         }
-    }
+        this.classList.add('was-validated');
+    });
 </script>
 </body>
 </html>
