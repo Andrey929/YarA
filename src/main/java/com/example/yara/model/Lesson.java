@@ -21,7 +21,9 @@ public class Lesson {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    private Integer evaluation;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "evaluation_id")
+    private Evaluation evaluation;
 
     private String comment;
 
@@ -36,5 +38,18 @@ public class Lesson {
         this.student = student;
         this.timeOfStart =timeOfStart;
         this.duration = duration;
+    }
+
+    @Override
+    public String toString() {
+        return "Lesson{" +
+                "id=" + id +
+                ", teacher=" + teacher.toString() +
+                ", evaluation=" + evaluation.toString() +
+                ", comment='" + comment + '\'' +
+                ", student=" + student +
+                ", timeOfStart=" + timeOfStart +
+                ", duration=" + duration +
+                '}';
     }
 }

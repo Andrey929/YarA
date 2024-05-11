@@ -23,13 +23,13 @@ public class StudentService {
     @Autowired
     LessonRepository lessonRepository;
 
-    public List<Integer>getEvaluations(){
-        List<Lesson> lessons = lessonRepository.findByStudentIdAndEvaluationIsNotNull(getActiveUser().getStudent().getId()).orElseThrow();
-        List<Integer> res = new ArrayList<>();
-        lessons.forEach(lesson -> {
-           res.add(lesson.getEvaluation());
-        });
-        return res;
-    }
+//    public List<Integer>getEvaluations(){
+//        List<Lesson> lessons = lessonRepository.findByStudentIdAndEvaluationIsNotNull(getActiveUser().getStudent().getId()).orElseThrow();
+//        List<Integer> res = new ArrayList<>();
+//        lessons.forEach(lesson -> {
+//           res.add(lesson.getEvaluation());
+//        });
+//        return res;
+//    }
 
 }

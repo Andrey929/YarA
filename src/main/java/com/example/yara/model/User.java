@@ -4,6 +4,7 @@ import com.example.yara.enums.Roles;
 import jakarta.persistence.*;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -97,5 +98,18 @@ public class User implements UserDetails{
                 "id=" + id +
                 // Other simple properties, avoid calling toString() on related entities
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(roles, user.roles) && Objects.equals(student, user.student) && Objects.equals(teacher, user.teacher) && Objects.equals(dateOfCreate, user.dateOfCreate) && Objects.equals(active, user.active);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastName, email, password, roles, student, dateOfCreate, active);
     }
 }

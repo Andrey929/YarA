@@ -1,6 +1,8 @@
 package com.example.yara.Controllers;
 
+import com.example.yara.DTO.EvaluationDTO;
 import com.example.yara.DTO.LessonDTO;
+import com.example.yara.DTO.StudentDTO;
 import com.example.yara.Service.LessonService;
 import com.example.yara.Service.TeacherService;
 import com.example.yara.model.User;
@@ -25,7 +27,10 @@ public class TeacherController {
     @GetMapping("/teacherPanel")
     public String getTeacherPanel(Model model){
         model.addAttribute("lessonDTO",new LessonDTO());
+        model.addAttribute("studentDTO", new StudentDTO());
         model.addAttribute("studentsList",teacherService.getStudents());
+        model.addAttribute("lessonList",lessonService.getLessons());
+        model.addAttribute("evaluationDTO",new EvaluationDTO());
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("teacherInf",user);
         return "teacherPanel";
@@ -40,10 +45,33 @@ public class TeacherController {
         //User teacher =(User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return "redirect:/teacherPanel";
     }
-    @GetMapping("/teacherPanel/myStudents")
+    @GetMapping("/teacherPanel/MyStudents")
     public String getStudents(Model model){
         model.addAttribute("studentsList",teacherService.getStudents());
-        return "myStudents";
+        return "teacherPanel";
     }
+    @GetMapping("/teacherPanel/myLessons")
+    public String getLessons(Model model){
+        model.addAttribute("lessonList",lessonService.getLessons());
+        //studentService.getEvaluations();
+        return "redirect:/teacherPanel";
+    }
+    @PostMapping("/teacherPanel/addStudent")
+    public String addNewStudent(@ModelAttribute("studentDTO") StudentDTO studentDTO){
+        teacherService.addStudent(studentDTO.getEmail());
+        return "redirect:/teacherPanel";
+    }
+    @PostMapping("/teacherPanel/setEvaluation")
+    public String setEvaluation(@ModelAttribute("evaluationDTO")EvaluationDTO evaluationDTO){
+        teacherService.setEvaluation(evaluationDTO);
+        return "redirect:/teacherPanel";
+    }
+    @GetMapping("/teacherPanel/HistoryMyLessons")
+    public String getHistoryLessons(Model model){
+        model.addAttribute("lessonList",lessonService.getHistoryLessons());
+        model.addAttribute("evaluationDTO",new EvaluationDTO());
+        return "myLessons";
+    }
+
 
 }

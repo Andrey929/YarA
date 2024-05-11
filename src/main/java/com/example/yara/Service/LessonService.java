@@ -2,10 +2,7 @@ package com.example.yara.Service;
 
 import com.example.yara.DTO.LessonDTO;
 import com.example.yara.enums.Roles;
-import com.example.yara.model.Lesson;
-import com.example.yara.model.Student;
-import com.example.yara.model.Teacher;
-import com.example.yara.model.User;
+import com.example.yara.model.*;
 import com.example.yara.repositories.LessonRepository;
 import com.example.yara.repositories.StudentRepository;
 import com.example.yara.repositories.TeacherRepository;
@@ -37,8 +34,7 @@ public class LessonService {
 
 
     public void creatLesson(LessonDTO lessonDTO){
-        User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Teacher teacher = teacherRepository.findById(authUser.getId()).orElseThrow();
+        Teacher teacher = getActiveUser().getTeacher();
         Student student = studentRepository.findById(lessonDTO.getStudentID()).orElseThrow();
         Lesson lesson = new Lesson(teacher,student,lessonDTO.getDataTime(),lessonDTO.getDuration());
         lessonRepository.save(lesson);

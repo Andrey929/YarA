@@ -28,9 +28,15 @@ public class Student {
     @OneToMany(mappedBy = "student")
     private Set<Lesson> lessons = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id")
-    private Teacher teacher;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "teacher_students",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "teacher_id"))
+    private Set<Teacher> teachers = new HashSet<>();
+
+    public Student(User user){
+        this.user = user;
+    }
 
     public String getName(){
         return user.getName();

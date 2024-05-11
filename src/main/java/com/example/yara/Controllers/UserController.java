@@ -36,10 +36,5 @@ public class UserController {
         return "myLessons";
     }
 
-    @GetMapping("/study/HistoryMyLessons")
-    public String getHistoryLessons(Model model){
-        model.addAttribute("lessonList",lessonService.getHistoryLessons());
-        //studentService.getEvaluations();
-        return "myLessons";
-    }
+
 }
