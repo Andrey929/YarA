@@ -33,11 +33,12 @@ public class Lesson {
 
     private LocalDateTime timeOfStart;
     private Integer duration;//продолжительность
-    public Lesson(Teacher teacher,Student student,LocalDateTime timeOfStart,Integer duration){
+    public Lesson(Teacher teacher,Student student,LocalDateTime timeOfStart,Integer duration, Evaluation evaluation){
         this.teacher = teacher;
         this.student = student;
         this.timeOfStart =timeOfStart;
         this.duration = duration;
+        this.evaluation = evaluation;
     }
 
     @Override

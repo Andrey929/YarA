@@ -36,7 +36,8 @@ public class LessonService {
     public void creatLesson(LessonDTO lessonDTO){
         Teacher teacher = getActiveUser().getTeacher();
         Student student = studentRepository.findById(lessonDTO.getStudentID()).orElseThrow();
-        Lesson lesson = new Lesson(teacher,student,lessonDTO.getDataTime(),lessonDTO.getDuration());
+        Evaluation evaluation = new Evaluation();
+        Lesson lesson = new Lesson(teacher,student,lessonDTO.getDataTime(),lessonDTO.getDuration(),evaluation);
         lessonRepository.save(lesson);
         log.info("Create lesson for Student "+ lesson.getStudent().getLastName() +" with teacher "+ lesson.getTeacher().getUser().getLastName());
     }

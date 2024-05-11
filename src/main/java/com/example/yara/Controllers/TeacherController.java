@@ -30,7 +30,6 @@ public class TeacherController {
         model.addAttribute("studentDTO", new StudentDTO());
         model.addAttribute("studentsList",teacherService.getStudents());
         model.addAttribute("lessonList",lessonService.getLessons());
-        model.addAttribute("evaluationDTO",new EvaluationDTO());
         User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("teacherInf",user);
         return "teacherPanel";
@@ -64,7 +63,7 @@ public class TeacherController {
     @PostMapping("/teacherPanel/setEvaluation")
     public String setEvaluation(@ModelAttribute("evaluationDTO")EvaluationDTO evaluationDTO){
         teacherService.setEvaluation(evaluationDTO);
-        return "redirect:/teacherPanel";
+        return "redirect:/teacherPanel/HistoryMyLessons";
     }
     @GetMapping("/teacherPanel/HistoryMyLessons")
     public String getHistoryLessons(Model model){

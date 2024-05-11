@@ -54,9 +54,10 @@ public class TeacherService {
     }
 
     public void setEvaluation(EvaluationDTO evaluationDTO){
-        System.out.println(evaluationDTO.getLessonID());
         Lesson lesson = lessonRepository.findById(evaluationDTO.getLessonID()).orElseThrow();
-        Evaluation evaluation = new Evaluation(lesson,evaluationDTO.getComment(),evaluationDTO.getEvaluation());
+        Evaluation evaluation = lesson.getEvaluation();
+        evaluation.setEvaluationPoint(evaluationDTO.getEvaluation());
+        evaluation.setComment(evaluationDTO.getComment());
         lesson.setEvaluation(evaluation);
         lessonRepository.save(lesson);
         log.info("Teacher "+ lesson.getTeacher().getUser().getLastName()+"set new evaluation for student with email: "+ lesson.getStudent().getLastName());
